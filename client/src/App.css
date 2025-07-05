@@ -1,0 +1,42 @@
+.auth-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-img img {
+    height: 14px;
+    width: auto;
+}
+
+.transparent-button {
+    background-color: transparent;
+    border: none;
+}
+
+.transparent-button:focus {
+    background-color: none;
+    border: none;
+    box-shadow: 0px 0px 3px 2px;
+}
+
+div.password {
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+}

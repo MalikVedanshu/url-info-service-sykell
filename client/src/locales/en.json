@@ -1,0 +1,52 @@
+{
+    "generic_txt": {
+        "click_here": "click here",
+        "welcome": "Welcome"
+        
+    },
+
+    "auth_txt": {
+        "redirect_signup": ["New user?", "to sign up"],
+        "redirect_login": ["Already a user?", "to sign in"],
+        "forget_password": ["Forgot password?", "to reset password"]
+    },
+    
+    "loginTXT": {
+        "fields": {
+            "email": "Email",
+            "password": "Password"
+        },
+        "placeholders" : {
+            "email": "Enter Email",
+            "password": "Enter Password"
+        },
+        "errors": {
+            "email": "Invalid email",
+            "password": "Password cannot be empty",
+            "email_not_found": "User not found. Please register or sign in with different Email",
+            "invalid": "Email or Password didn't match"
+        }
+    },
+    "signupTXT": {
+            "fields": {
+                "name": "Name",
+                "email": "Email",
+                "password": "Password",
+                "confirmPassword": "Confirm Password",
+                "already_exist": "User already exist",
+                "server_error": "Something went wrong"
+            },
+            "placeholders" : {
+                "name": "Enter Name",
+                "email": "Enter Email",
+                "password": "Enter Password",
+                "confirmPassword": "Reenter Password"
+            },
+            "errors": {
+                "name": "Name should be atleast 2 alphabets and atmost 70",
+                "email": "Invalid email",
+                "password": "Password must be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and special characters.",
+                "confirmPassword": "Confirm Password didn't match"
+            }
+    }
+}
