@@ -49,6 +49,9 @@ const Signup: React.FC = () => {
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        console.log("Submit handler worked");
 
         let validName = isValidName(signupDt.name);
         let validEmail = isValidEmail(signupDt.email);
@@ -86,6 +89,7 @@ const Signup: React.FC = () => {
                     </label>
 
                     <input
+                        className={signupErr.name ? "input-error" : ""}
                         type="text"
                         name="name"
                         id="name"
@@ -107,6 +111,7 @@ const Signup: React.FC = () => {
                     <input
                         type="text"
                         name="email"
+                        className={signupErr.email ? "input-error" : ""}
                         id="email"
                         value={email}
                         placeholder={
@@ -123,6 +128,7 @@ const Signup: React.FC = () => {
                     </label>
                     <div className='password'>
                         <input
+                            className={signupErr.password ? "input-error" : ""}
                             type={shouldShowPass ? "text" : "password" }
                             name="password"
                             id="password"
@@ -134,8 +140,9 @@ const Signup: React.FC = () => {
                             required
                         />
                         <button 
+                            type='button'
                             className='transparent-button icon-img'
-                            onClick={() => setShouldShowPass(true)}
+                            onClick={() => setShouldShowPass(!shouldShowPass)}
                         >
                             <img src={Eye} alt='view hidden password' />
                         </button>
@@ -148,6 +155,7 @@ const Signup: React.FC = () => {
                     </label>
                     <div className='password'>
                         <input
+                            className={signupErr.confirmPassword ? "input-error" : ""}
                             type={shouldShowConfirmPass ? 'text' : 'password'}
                             name='confirmPassword'
                             id='confirmPassword'
@@ -159,14 +167,17 @@ const Signup: React.FC = () => {
                             required
                         />
                         <button 
+                            type='button'
                             className="transparent-button icon-img" 
-                            onClick={() => setShouldShowConfirmPass(true)}
+                            onClick={() => setShouldShowConfirmPass(!shouldShowConfirmPass)}
                         >
                             <img src={Eye} alt='view hidden password' />
                         </button>
                     </div>
                 </div>
-                            <button type='submit'>
+                            <button 
+                                type='submit' 
+                            >
                                 Submit
                             </button>
             </form>

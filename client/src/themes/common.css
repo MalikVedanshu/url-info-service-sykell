@@ -1,0 +1,7 @@
+.input-error {
+    box-shadow: 0px 0px 3px 2px #EE0000;
+}
+
+.input-error::placeholder {
+    color: #EE0000;
+}

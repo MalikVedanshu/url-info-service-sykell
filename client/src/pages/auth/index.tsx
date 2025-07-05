@@ -31,7 +31,12 @@ const UserAuth : React.FC = () => {
 
             <p>
                 <span>{auth_txt[`redirect_${activeAuthComponent}`][0]}</span>
-                <button onClick={handleRedirectClick}>click here</button>
+                <button 
+                    onClick={handleRedirectClick}
+                    type='button'
+                >
+                    click here
+                </button>
                 <span>{auth_txt[`redirect_${activeAuthComponent}`][1]}</span>
             </p>  
         </div>

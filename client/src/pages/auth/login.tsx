@@ -43,6 +43,8 @@ const Login: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
+        e.preventDefault();
+
         let validEmail = isValidEmail(loginDt.email);
         let validPassword = loginDt.password.length > 1;
 
@@ -76,6 +78,7 @@ const Login: React.FC = () => {
                     </label>
 
                     <input
+                        className={loginErr.email ? "input-error" : ""}
                         type="text"
                         name="email"
                         id="email"
@@ -83,6 +86,7 @@ const Login: React.FC = () => {
                         placeholder={
                             loginErr.email ? loginTXT.errors.email : loginTXT.placeholders.email
                         }
+
                         onChange={handleLoginFieldChange}
                         required
                     />
@@ -96,6 +100,7 @@ const Login: React.FC = () => {
                     <div className='password'>
 
                         <input
+                            className={loginErr.password ? "input-error" : ""}
                             type={shouldShowPasswd ? "text": "password" }
                             name="password"
                             id="password"
@@ -107,8 +112,9 @@ const Login: React.FC = () => {
                             required
                         />
                         <button 
+                            type='button'
                             className='transparent-button icon-img'
-                            onClick={() => setShouldShowPasswd(true)}
+                            onClick={() => setShouldShowPasswd(!shouldShowPasswd)}
                         >
                             <img src={Eye} alt='view hidden password' />
                         </button>

@@ -1,4 +1,5 @@
 import './App.css';
+import './themes/common.css';
 import {Routes, Route} from "react-router-dom";
 import React from 'react';
 import UserAuth from './pages/auth/index.tsx';
