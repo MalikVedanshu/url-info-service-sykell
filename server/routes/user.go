@@ -115,7 +115,7 @@ func loginHandler(c *gin.Context) {
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)), // Token valid for 24h
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			Issuer:    "your-app-name",
+			Issuer:    "url-info-service-sykell",
 		},
 	}
 
