@@ -47,7 +47,10 @@ func ConnectDB() {
 	if err != nil {
 		log.Fatalf("Migration failed: %v", err)
 	}
+	
 
 	fmt.Println("Database migrated successfully")
+	
+
 }
 
