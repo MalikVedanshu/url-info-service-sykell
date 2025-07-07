@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { isValidEmail } from '../../utils/FormValidation.ts';
 import texts from "../../locales/en.json";
 import { Eye } from '../../files/icons/index.ts';
+import API from '../../utils/request.ts';
 
 const { loginTXT } = texts;
 
@@ -41,7 +42,11 @@ const Login: React.FC = () => {
 
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+        try {
+
+        
 
         e.preventDefault();
 
@@ -58,6 +63,16 @@ const Login: React.FC = () => {
             // error
         } else {
             // hit login api
+            const response = await API.post(`/auth/login`, loginDt);
+            const token = response.data.token;
+            console.log(token);
+
+            localStorage.setItem('z-token', token);
+        }
+        }
+        catch(err: any) {
+            // throw err.response?.data?.error || 'Login failed';
+            console.log(err);
         }
 
     }

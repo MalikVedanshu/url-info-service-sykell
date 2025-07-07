@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { isValidName, isValidEmail, isStrongPassword, isPasswordMatch } from '../../utils/FormValidation.ts';
 import texts from '../../locales/en.json';
 import { Eye } from '../../files/icons/index.ts';
+import axios from 'axios';
 
 const { signupTXT } = texts;
 

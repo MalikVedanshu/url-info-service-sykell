@@ -2,8 +2,10 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 	"server/routes"
 	"server/db"
+	"time"
 	// "net/http"
 )
 
@@ -12,6 +14,17 @@ func main () {
 	db.ConnectDB()
 
 	router := gin.Default()
+
+
+	router.Use(cors.New(cors.Config{
+        AllowOrigins:     []string{"http://192.168.178.89:3000"}, // my local host ipv4 for react
+        AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+        AllowHeaders:     []string{"Origin", "Content-Type", "z-token"}, // key for my auth token z-token
+        ExposeHeaders:    []string{"Content-Length"},
+        AllowCredentials: true,
+        MaxAge: 12 * time.Hour,
+    }))
+
 
 	router.GET("/firsthello", func(c *gin.Context) {
 		c.JSON(200, gin.H {

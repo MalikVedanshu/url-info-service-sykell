@@ -35,7 +35,7 @@ func AuthRoutes(router *gin.Engine) {
 	{
 		authGroup.POST("/signup", signupHandler)
 		authGroup.GET("/user/:id", middlewares.LoginMiddleware(), getUserById)
-		authGroup.GET("/login", loginHandler)
+		authGroup.POST("/login", loginHandler)
 		
 	}
 }
