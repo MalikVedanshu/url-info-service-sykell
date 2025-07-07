@@ -10,6 +10,8 @@ import (
 	"server/models"
 	"golang.org/x/crypto/bcrypt"
 	"github.com/golang-jwt/jwt/v5"
+	// "fmt"
+	"server/middlewares"
 	// "github.com/joho/godotenv"
 )
 
@@ -32,7 +34,7 @@ func AuthRoutes(router *gin.Engine) {
 	authGroup := router.Group("/auth")
 	{
 		authGroup.POST("/signup", signupHandler)
-		authGroup.GET("/user/:id", getUserById)
+		authGroup.GET("/user/:id", middlewares.LoginMiddleware(), getUserById)
 		authGroup.GET("/login", loginHandler)
 		
 	}
@@ -131,7 +133,5 @@ func loginHandler(c *gin.Context) {
 		"token": tokenString,
 	})
 }
-
-
 
 
