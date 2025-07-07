@@ -12,6 +12,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	// "fmt"
 	"server/middlewares"
+	"server/utils"
 	// "github.com/joho/godotenv"
 )
 
@@ -36,6 +37,7 @@ func AuthRoutes(router *gin.Engine) {
 		authGroup.POST("/signup", signupHandler)
 		authGroup.GET("/user/:id", middlewares.LoginMiddleware(), getUserById)
 		authGroup.POST("/login", loginHandler)
+		authGroup.GET("/validate", middlewares.LoginMiddleware(), responseAfterValidatingUser);
 		
 	}
 }
@@ -51,6 +53,10 @@ func signupHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
+
+	token := utils.CreateRandomAlpha();
+
+	user.Token = token;
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 
@@ -68,6 +74,33 @@ func signupHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "User created successfully", "user": user})
+}
+
+func responseAfterValidatingUser (c *gin.Context) {
+
+	
+
+	userIDVal, exists := c.Get("userID")
+    if !exists {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "User ID not found in context"})
+        return
+    }
+
+	var user models.User
+
+	result := db.DB.First(&user, "id = ?", userIDVal)
+
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		return
+	}
+
+	// fmt.Println(user)
+
+	c.JSON(http.StatusOK, gin.H {
+		"name": user.Name, "email": user.Email,
+	})
+
 }
 
 

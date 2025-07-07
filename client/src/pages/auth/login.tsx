@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { Eye } from '../../files/icons/index.ts';
+
 import { isValidEmail } from '../../utils/FormValidation.ts';
 import texts from "../../locales/en.json";
-import { Eye } from '../../files/icons/index.ts';
 import API from '../../utils/request.ts';
 
 const { loginTXT } = texts;
@@ -17,7 +20,14 @@ interface LoginErrors {
     password: boolean
 }
 
+interface ResponseNotification {
+    message: string,
+    isError: boolean
+}
+
 const Login: React.FC = () => {
+
+    const navigate = useNavigate();
 
     const [loginDt, setLoginDt] = useState<LoginData>({
 
@@ -29,6 +39,11 @@ const Login: React.FC = () => {
 
         email: false,
         password: false
+    });
+
+    const [responseNotification, setResponseNotification] = useState<ResponseNotification>({
+        message: "",
+        isError: false
     });
 
     const [shouldShowPasswd, setShouldShowPasswd] = useState<boolean>(false);
@@ -46,33 +61,46 @@ const Login: React.FC = () => {
 
         try {
 
-        
 
-        e.preventDefault();
 
-        let validEmail = isValidEmail(loginDt.email);
-        let validPassword = loginDt.password.length > 1;
+            e.preventDefault();
 
-        setLoginErr({
+            let validEmail = isValidEmail(loginDt.email);
+            let validPassword = loginDt.password.length > 1;
 
-            email: validEmail,
-            password: validPassword
-        })
+            setLoginErr({
 
-        if (!(validEmail && validPassword)) {
-            // error
-        } else {
-            // hit login api
-            const response = await API.post(`/auth/login`, loginDt);
-            const token = response.data.token;
-            console.log(token);
+                email: validEmail,
+                password: validPassword
+            })
 
-            localStorage.setItem('z-token', token);
+            if (!(validEmail && validPassword)) {
+                // error
+            } else {
+                // hit login api
+                const response = await API.post(`/auth/login`, loginDt);
+
+
+                console.log("response", response);
+                const token = response?.data?.token;
+                console.log(token);
+
+                setResponseNotification({message: "Login Successfull", isError: false});
+                
+
+                localStorage.setItem('z-token', token);
+
+                navigate("/dashboard");
+
+
+            }
         }
-        }
-        catch(err: any) {
+        catch (err: any) {
             // throw err.response?.data?.error || 'Login failed';
-            console.log(err);
+            let responseError  = err?.response?.data?.error || "Something went wrong";
+            setResponseNotification({message: responseError, isError: true});
+            console.log("err", err);
+
         }
 
     }
@@ -116,7 +144,7 @@ const Login: React.FC = () => {
 
                         <input
                             className={loginErr.password ? "input-error" : ""}
-                            type={shouldShowPasswd ? "text": "password" }
+                            type={shouldShowPasswd ? "text" : "password"}
                             name="password"
                             id="password"
                             value={password}
@@ -126,7 +154,7 @@ const Login: React.FC = () => {
                             onChange={handleLoginFieldChange}
                             required
                         />
-                        <button 
+                        <button
                             type='button'
                             className='transparent-button icon-img'
                             onClick={() => setShouldShowPasswd(!shouldShowPasswd)}
@@ -141,6 +169,10 @@ const Login: React.FC = () => {
                 </button>
 
             </form>
+
+            {responseNotification?.message?.length ? 
+            <div className={responseNotification.isError ? "txt-error" : "txt-success"}>{responseNotification.message}</div> : 
+            <div></div>}
         </div>
     )
 }

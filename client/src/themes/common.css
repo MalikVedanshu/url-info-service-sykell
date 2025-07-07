@@ -5,3 +5,11 @@
 .input-error::placeholder {
     color: #EE0000;
 }
+
+.txt-error {
+    color: #EE0000;
+}
+
+.txt-success {
+    color: green;
+}

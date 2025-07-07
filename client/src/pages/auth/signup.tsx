@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { isValidName, isValidEmail, isStrongPassword, isPasswordMatch } from '../../utils/FormValidation.ts';
 import texts from '../../locales/en.json';
 import { Eye } from '../../files/icons/index.ts';
-import axios from 'axios';
+import API from '../../utils/request.ts';
 
 const { signupTXT } = texts;
 
@@ -49,28 +49,39 @@ const Signup: React.FC = () => {
 
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        try {
+            e.preventDefault();
 
-        console.log("Submit handler worked");
+            console.log("Submit handler worked");
 
-        let validName = isValidName(signupDt.name);
-        let validEmail = isValidEmail(signupDt.email);
-        let strongPassword = isStrongPassword(signupDt.password);
-        let passwordMatch = isPasswordMatch(signupDt.password, signupDt.confirmPassword);
+            let validName = isValidName(signupDt.name);
+            let validEmail = isValidEmail(signupDt.email);
+            let strongPassword = isStrongPassword(signupDt.password);
+            let passwordMatch = isPasswordMatch(signupDt.password, signupDt.confirmPassword);
 
-        setSignupErr({
-            name: validName,
-            email: validEmail,
-            password: strongPassword,
-            confirmPassword: passwordMatch
-        })
+            setSignupErr({
+                name: validName,
+                email: validEmail,
+                password: strongPassword,
+                confirmPassword: passwordMatch
+            })
 
-        if (!(validName && validEmail && strongPassword && passwordMatch)) {
-            // error
-        } else {
-            // hit api
+            if (!(validName && validEmail && strongPassword && passwordMatch)) {
+                // error
+            } else {
+                // hit api
+
+                let signupResponse = await API.post("/auth/signup", signupDt);
+                console.log("signupResponse", signupResponse);
+
+            }
         }
+        catch (err: any) {
+            console.log(err);
+        }   
+
+
 
     }
 
@@ -130,7 +141,7 @@ const Signup: React.FC = () => {
                     <div className='password'>
                         <input
                             className={signupErr.password ? "input-error" : ""}
-                            type={shouldShowPass ? "text" : "password" }
+                            type={shouldShowPass ? "text" : "password"}
                             name="password"
                             id="password"
                             value={password}
@@ -140,7 +151,7 @@ const Signup: React.FC = () => {
                             onChange={handleSignupFieldChange}
                             required
                         />
-                        <button 
+                        <button
                             type='button'
                             className='transparent-button icon-img'
                             onClick={() => setShouldShowPass(!shouldShowPass)}
@@ -167,20 +178,20 @@ const Signup: React.FC = () => {
                             onChange={handleSignupFieldChange}
                             required
                         />
-                        <button 
+                        <button
                             type='button'
-                            className="transparent-button icon-img" 
+                            className="transparent-button icon-img"
                             onClick={() => setShouldShowConfirmPass(!shouldShowConfirmPass)}
                         >
                             <img src={Eye} alt='view hidden password' />
                         </button>
                     </div>
                 </div>
-                            <button 
-                                type='submit' 
-                            >
-                                Submit
-                            </button>
+                <button
+                    type='submit'
+                >
+                    Submit
+                </button>
             </form>
         </div>
     )
