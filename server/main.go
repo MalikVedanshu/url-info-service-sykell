@@ -58,6 +58,7 @@ func main () {
 	
 
 	routes.AuthRoutes(router)
+	routes.UrlRoutes(router)
 
 	router.Run(":5050")
 }
