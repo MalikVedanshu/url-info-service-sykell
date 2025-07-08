@@ -1,6 +1,7 @@
 
 import React, {useState, useEffect} from "react";
 import API from "../../utils/request.ts";
+import ViewUrl from "./View.tsx";
 
 interface ResponseNotification {
     message: string,
@@ -77,6 +78,8 @@ const Dashboard : React.FC = () => {
             {
                 userDetails.name?.length ? <h1>Hello {userDetails.name} - {userDetails.email}</h1> : <div></div>
             }
+
+            <ViewUrl />
         </>
     )
 }

@@ -1,8 +1,8 @@
 
 import React, {useState} from "react";
 
-import Login from "./login.tsx";
-import Signup from "./signup.tsx";
+import Login from "./Login.tsx";
+import Signup from "./Signup.tsx";
 import texts from '../../locales/en.json';
 
 const {auth_txt} = texts;

@@ -3,7 +3,7 @@ import './themes/common.css';
 import {Routes, Route} from "react-router-dom";
 import React from 'react';
 import UserAuth from './pages/auth/index.tsx';
-import Dashboard from './pages/dashboard/index.tsx';
+import Dashboard from './pages/url_dashboard/index.tsx';
 
 const App: React.FC = () => {
 

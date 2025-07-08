@@ -1,0 +1,99 @@
+{
+    "fields_structure": [
+        {
+            "fieldName": "title",
+            "heading": "Title",
+            "type": "text",
+            "sortable": true,
+            "required": false
+        },
+        {
+            "fieldName": "url",
+            "heading": "URL Name",
+            "type": "text",
+            "sortable": true,
+            "required": false
+        },
+        {
+            "fieldName": "htmlVersion",
+            "heading": "HTML Version",
+            "type": "text",
+            "sortable": false,
+            "required": false
+        },
+        {
+            "fieldName": "heading",
+            "heading": "Headings",
+            "type": "parent",
+            "sortable": false,
+            "required": false,
+            "subfields": [
+                {
+                    "fieldName": "h1", 
+                    "heading": "H1",
+                    "type": "number",
+                    "sortable": false
+                },
+                {
+                    "fieldName": "h2", 
+                    "heading": "H2",
+                    "type": "number",
+                    "sortable": false
+                },
+                {
+                    "fieldName": "h3", 
+                    "heading": "H3",
+                    "type": "number",
+                    "sortable": false
+                },
+                {
+                    "fieldName": "h4", 
+                    "heading": "H4",
+                    "type": "number",
+                    "sortable": false
+                },
+                {
+                    "fieldName": "h5", 
+                    "heading": "H5",
+                    "type": "number",
+                    "sortable": false
+                },
+                {
+                    "fieldName": "h6", 
+                    "heading": "H6",
+                    "type": "number",
+                    "sortable": false
+                }
+            ]
+        },
+        {
+            "fieldName": "internalLinks",
+            "heading": "Internal Links",
+            "type": "text",
+            "sortable": true,
+            "required": false
+        },
+        {
+            "fieldName": "externalLinks",
+            "heading": "External Links",
+            "type": "text",
+            "sortable": true,
+            "required": false
+        },
+        {
+            "fieldName": "inaccessibleLinks",
+            "heading": "In-Accessible Links",
+            "type": "text",
+            "sortable": true,
+            "required": false
+        },
+        {
+            "fieldName": "presenseOfLoginForm",
+            "heading": "Login Form Present",
+            "type": "boolean",
+            "sortable": false,
+            "required": false
+        }
+        
+    ]
+}
