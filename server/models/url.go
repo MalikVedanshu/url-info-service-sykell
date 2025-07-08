@@ -2,13 +2,15 @@ package models
 
 import (
 	"gorm.io/gorm"
+	"github.com/google/uuid"
 )
 
 type AllUrl struct {
 	gorm.Model
+	UserId string `json: userId`
 	Title string `json:"title"`
-	Url string `json:"url" gorm:"unique"`
-	ID string `json:"id"`
+	Url string `json:"url"`
+	ID string `json:"id" gorm: "primaryKey"`
 	HtmlVersion string `json:"htmlVersion"`
 	H1 int `json:"h1"`
 	H2 int `json:"h2"`
@@ -20,5 +22,11 @@ type AllUrl struct {
 	ExternalLinks int `json:"externalLinks"`
 	InAccessibleLinks int `json:"inAccessibleLinks"`
 	PresenseOfLoginForm bool `json:"presenseOfLoginForm"`
+	Alalysed bool `json:"analysed"`
+}
+
+func (ur *AllUrl) BeforeCreate(tx *gorm.DB) (err error) {
+	ur.ID = uuid.New().String()
+	return
 }
 
