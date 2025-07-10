@@ -7,7 +7,7 @@ import (
 	"net/url"
 	// "io/ioutil"
 	"io"
-	"fmt"
+	// "fmt"
 	
 	"github.com/PuerkitoBio/goquery"
 )
@@ -57,7 +57,7 @@ func AnalyzeURL(rawurl string) (*AnalysisResult, error) {
 	}
 	htmlString := string(bodyBytes)
 
-	fmt.Println("htmlString : ", htmlString);
+	// fmt.Println("htmlString : ", htmlString);
 
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(htmlString))
 	if err != nil {

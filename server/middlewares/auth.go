@@ -41,7 +41,7 @@ func LoginMiddleware () gin.HandlerFunc {
 		})
 
 		if err != nil || !token.Valid {
-			fmt.Println("JWT Parse error:", err)
+			// fmt.Println("JWT Parse error:", err)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired token"})
 			return
 		}

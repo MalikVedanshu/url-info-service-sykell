@@ -66,18 +66,40 @@ CompileDaemon -command="go run main.go"
 ```
 
 ### .env file needs to be added in root/server folder values being
-
+```
 DB_SERVER=127.0.0.1
 DB_PORT=1433
 DB_USER=sa
 DB_PASS=
 DB_DATABASE=
 JWT_SECRET=
+```
 
+# Folder Structure
 
-
-
+```
 root/
-├── frontend/          # React app
-├── backend/           # Golang API (Gin)
-├── README.md
+├── frontend/                  # React app
+│   ├── public/
+│   └── src/
+│       ├── index.tsx
+│       ├── App.tsx
+│       ├── components/        # Reusable UI components
+│       ├── pages/             # Page-level components
+│       ├── locales/           # i18n translations (if used)
+│       ├── themes/            # Theme configuration (e.g. styled-components, Tailwind)
+│       ├── utils/             # Frontend utility functions
+│       └── ...
+│
+├── backend/                   # Golang API (Gin)
+│   ├── main.go
+│   ├── .env                   # Environment variables
+│   ├── middlewares/          # Custom middleware (e.g. auth, CORS)
+│   ├── models/               # Database models & structs
+│   ├── routes/               # Route handlers
+│   ├── utils/                # Helper functions
+│   └── ...
+│
+├── README.md                  # Project instructions
+└── ...
+```

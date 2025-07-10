@@ -159,7 +159,7 @@ func analyseUrl (c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"message": "Analysis successful", allUrl});
+	c.JSON(200, gin.H{"message": "Analysis successful", "allUrl": allUrl});
 
 }
 
