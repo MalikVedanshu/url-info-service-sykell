@@ -10,9 +10,9 @@ import (
 type User struct {
 	gorm.Model
 	ID 		 string `json:"id" gorm:"primaryKey"`
-	Name	 string `json:"name"`
-	Email	 string `json:"email" gorm:"unique"`
-	Password string `json:"password"`
+	Name	 string `json:"name" gorm:"not null" binding:"required"`
+	Email	 string `json:"email" gorm:"unique;not null" binding:"required,email"`
+	Password string `json:"password" gorm:"not null" binding:"required"`
 	Token	 string `json:"token"` 
 	Verified bool `json:"verified"` // we can have this value false by default and can change it to 2 after user click email verification 
 }

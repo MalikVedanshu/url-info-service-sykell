@@ -132,3 +132,6 @@ tr:hover {
     justify-content: flex-end;
 }
 
+button:disabled {
+    cursor: not-allowed;
+}

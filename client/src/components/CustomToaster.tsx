@@ -15,7 +15,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     setTimeout(() => {
       setToasts((prev) => prev.slice(1));
-    }, 3000); // auto-dismiss
+    }, 3000);
   };
 
   return (

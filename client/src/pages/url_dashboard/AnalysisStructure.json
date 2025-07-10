@@ -96,7 +96,7 @@
         },
         {
             "fieldName": "id",
-            "heading": "Action",
+            "heading": "Analyse",
             "type": "button",
             "icon": "action",
             "sortable": false,

@@ -33,7 +33,16 @@ export interface AllUrlResponse {
     analysed: boolean
 }
 
+
+type DataChangeContextType = {
+  dataChangeTriggered: boolean;
+  setDataChangeTriggered: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+
 export const AllUrlsContext = createContext<AllUrlResponse[] | null>(null);
+
+export const DataChangeContext = createContext<DataChangeContextType | undefined>(undefined);
 
 
 const Dashboard: React.FC = () => {
@@ -102,7 +111,9 @@ const Dashboard: React.FC = () => {
             <AddUrlModal dataChangeTriggered={dataChangeTriggered} setDataChangeTriggered={setDataChangeTriggered} />
             <AllUrlsContext.Provider value={allUrls}>
 
-                <ViewUrl />
+                <DataChangeContext.Provider value={{ dataChangeTriggered, setDataChangeTriggered }}>
+                    <ViewUrl />
+                </DataChangeContext.Provider>
             </AllUrlsContext.Provider>
         </>
     )

@@ -7,7 +7,7 @@ import (
 
 type AllUrl struct {
 	gorm.Model
-	UserId string `json: userId`
+	UserId string `json:"userId"`
 	Title string `json:"title"`
 	Url string `json:"url"`
 	ID string `json:"id" gorm: "primaryKey"`
@@ -22,7 +22,7 @@ type AllUrl struct {
 	ExternalLinks int `json:"externalLinks"`
 	InAccessibleLinks int `json:"inAccessibleLinks"`
 	PresenseOfLoginForm bool `json:"presenseOfLoginForm"`
-	Alalysed bool `json:"analysed"`
+	Analysed bool `json:"analysed"`
 }
 
 func (ur *AllUrl) BeforeCreate(tx *gorm.DB) (err error) {
