@@ -70,7 +70,25 @@ func addUrl (c *gin.Context) {
 		return
 	}
 
+	duplicateUrl := db.DB.Where("user_id = ? AND url = ?", userIdStr, urls.Url).First(&urls)
+
+	if duplicateUrl.Error == nil {
+
+		c.JSON(http.StatusBadRequest, gin.H{"error": "This URL already exists for this user"})
+		return
+	}
+
+	// if result.Error != nil {
+    //     if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+    //         return false, nil
+    //     }
+    //     return false, result.Error // Other DB errors
+    // }
+
+
 	urls.UserId = userIdStr
+
+	
 
 	addUrlResult := db.DB.Create(&urls)
 
