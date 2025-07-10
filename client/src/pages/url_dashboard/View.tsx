@@ -1,19 +1,31 @@
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
+import {AllUrlResponse, AllUrlsContext } from "./index.tsx";
 import TableFields from "./AnalysisStructure.json";
 import TestData from './test_data.json';
-
+import { Analyse } from "../../files/icons/index.ts";
 const fieldsStructure = TableFields["fields_structure"];
 
 
-const ViewUrl : React.FC = () => {
+
+
+const ViewUrl = () =>  {
+
+    const allUrls = useContext(AllUrlsContext);
+
+    const handleModelOpen = () => {
+
+    }
 
     useEffect (() => {
         // console.log("TableFields",TableFields);
 
         console.log("TestData: ", TestData)
-    }, [])
+
+        console.log("allUrls", allUrls);
+    }, [allUrls])
     return (
         <>
+        
             <table>
                 <thead>
                     <tr>
@@ -23,13 +35,12 @@ const ViewUrl : React.FC = () => {
                         ))
                     }
 
-                    <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {
-                        TestData.map((urlData, urlIdx) => (
+                        allUrls && allUrls.map((urlData, urlIdx) => (
                             <tr key={urlIdx}>
                                 {
                                     fieldsStructure.map((fieldEle, fieldIdx) => (
@@ -54,6 +65,12 @@ const ViewUrl : React.FC = () => {
 
                                                 </span> || ""
                                                 
+                                            }
+
+                                            {
+                                                fieldEle.type === "button" && <span>
+                                                    <button><img src={Analyse} /></button>
+                                                </span> || ""
                                             }
                                             
                                         </td>

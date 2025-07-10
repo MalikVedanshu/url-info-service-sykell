@@ -1,11 +1,13 @@
 
-import React, {useState} from "react";
+import React, {useState, createContext} from "react";
 
 import Login from "./Login.tsx";
 import Signup from "./Signup.tsx";
 import texts from '../../locales/en.json';
 
 const {auth_txt} = texts;
+
+
 const UserAuth : React.FC = () => {
 
     const handleRedirectClick = () => {
@@ -25,7 +27,7 @@ const UserAuth : React.FC = () => {
             }
 
             {
-                activeAuthComponent === "signup" ? <Signup /> : <></>
+                activeAuthComponent === "signup" ? <Signup setActiveAuthComponent={setActiveAuthComponent} /> : <></>
             }
 
 

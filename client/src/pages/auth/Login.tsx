@@ -6,6 +6,8 @@ import { Eye } from '../../files/icons/index.ts';
 import { isValidEmail } from '../../utils/FormValidation.ts';
 import texts from "../../locales/en.json";
 import API from '../../utils/request.ts';
+import { useToast } from '../../components/CustomToaster.tsx';
+import { handleApiError } from '../../utils/errorHandler.ts';
 
 const { loginTXT } = texts;
 
@@ -20,12 +22,19 @@ interface LoginErrors {
     password: boolean
 }
 
-interface ResponseNotification {
-    message: string,
-    isError: boolean
-}
+// interface ResponseNotification {
+//     message: string,
+//     isError: boolean
+// }
+
+
+// interface LoginProp {
+//     setActiveAuthComponent: React.Dispatch<React.SetStateAction<string>>
+// }
 
 const Login: React.FC = () => {
+
+    const toast = useToast();
 
     const navigate = useNavigate();
 
@@ -41,10 +50,10 @@ const Login: React.FC = () => {
         password: false
     });
 
-    const [responseNotification, setResponseNotification] = useState<ResponseNotification>({
-        message: "",
-        isError: false
-    });
+    // const [responseNotification, setResponseNotification] = useState<ResponseNotification>({
+    //     message: "",
+    //     isError: false
+    // });
 
     const [shouldShowPasswd, setShouldShowPasswd] = useState<boolean>(false);
 
@@ -70,12 +79,15 @@ const Login: React.FC = () => {
 
             setLoginErr({
 
-                email: validEmail,
-                password: validPassword
+                email: !validEmail,
+                password: !validPassword
             })
 
             if (!(validEmail && validPassword)) {
                 // error
+
+                toast({message: "Please enter valid email and password", isError: true});
+
             } else {
                 // hit login api
                 const response = await API.post(`/auth/login`, loginDt);
@@ -85,7 +97,7 @@ const Login: React.FC = () => {
                 const token = response?.data?.token;
                 console.log(token);
 
-                setResponseNotification({message: "Login Successfull", isError: false});
+                toast({message: "Login Successfull", isError: false});
                 
 
                 localStorage.setItem('z-token', token);
@@ -98,7 +110,7 @@ const Login: React.FC = () => {
         catch (err: any) {
             // throw err.response?.data?.error || 'Login failed';
             let responseError  = err?.response?.data?.error || "Something went wrong";
-            setResponseNotification({message: responseError, isError: true});
+            toast({message: responseError, isError: true});
             console.log("err", err);
 
         }
@@ -170,9 +182,7 @@ const Login: React.FC = () => {
 
             </form>
 
-            {responseNotification?.message?.length ? 
-            <div className={responseNotification.isError ? "txt-error" : "txt-success"}>{responseNotification.message}</div> : 
-            <div></div>}
+            
         </div>
     )
 }

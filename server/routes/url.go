@@ -6,6 +6,7 @@ import (
 	"server/db"
 	"net/http"
 	"server/models"
+	// "fmt"
 )
 
 type CreateUrl struct {
@@ -24,7 +25,7 @@ func UrlRoutes (router *gin.Engine) {
 
 
 func getUrl (c *gin.Context) {
-	var urls models.AllUrl
+	var urls[] models.AllUrl
 	userIDVal, exists := c.Get("userID")
 
 	if !exists {
@@ -33,11 +34,14 @@ func getUrl (c *gin.Context) {
     }
 
 	result := db.DB.Where("user_id = ? ", userIDVal).Limit(10).Find(&urls)
+	// fmt.Println("urls", urls)
 
 	if result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "No url's found"})
 		return
 	}
+
+	
 
 	c.JSON(200, gin.H{"message": urls})
 	return

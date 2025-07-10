@@ -1,15 +1,15 @@
 {
     "fields_structure": [
         {
-            "fieldName": "title",
-            "heading": "Title",
+            "fieldName": "url",
+            "heading": "URL Name",
             "type": "text",
             "sortable": true,
             "required": false
         },
         {
-            "fieldName": "url",
-            "heading": "URL Name",
+            "fieldName": "title",
+            "heading": "Title",
             "type": "text",
             "sortable": true,
             "required": false
@@ -93,6 +93,15 @@
             "type": "boolean",
             "sortable": false,
             "required": false
+        },
+        {
+            "fieldName": "id",
+            "heading": "Action",
+            "type": "button",
+            "icon": "action",
+            "sortable": false,
+            "required": false
+
         }
         
     ]

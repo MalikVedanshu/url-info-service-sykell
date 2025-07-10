@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { isValidName, isValidEmail, isStrongPassword, isPasswordMatch } from '../../utils/FormValidation.ts';
 import texts from '../../locales/en.json';
 import { Eye } from '../../files/icons/index.ts';
 import API from '../../utils/request.ts';
+import { useToast } from '../../components/CustomToaster.tsx';
+import { handleApiError } from '../../utils/errorHandler.ts';
+
 
 const { signupTXT } = texts;
 
@@ -20,7 +24,16 @@ interface SignupErrors {
     confirmPassword: boolean
 }
 
-const Signup: React.FC = () => {
+interface SignupProp {
+    setActiveAuthComponent: React.Dispatch<React.SetStateAction<string>>
+}
+
+
+const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
+
+    const navigate = useNavigate();
+
+    const toast = useToast();
 
     const [signupDt, setSignupDt] = useState<SignupData>({
         name: "",
@@ -61,25 +74,40 @@ const Signup: React.FC = () => {
             let passwordMatch = isPasswordMatch(signupDt.password, signupDt.confirmPassword);
 
             setSignupErr({
-                name: validName,
-                email: validEmail,
-                password: strongPassword,
-                confirmPassword: passwordMatch
+                name: !validName,
+                email: !validEmail,
+                password: !strongPassword,
+                confirmPassword: !passwordMatch
             })
 
             if (!(validName && validEmail && strongPassword && passwordMatch)) {
-                // error
+                
+                !validName && toast({ message: signupTXT.errors.name, isError: true });
+
+                 !validEmail && toast({ message: signupTXT.errors.email, isError: true });
+
+                !strongPassword && toast({ message: signupTXT.errors.password, isError: true });
+                !passwordMatch && toast({ message: signupTXT.errors.confirmPassword, isError: true });
+
             } else {
                 // hit api
 
-                let signupResponse = await API.post("/auth/signup", signupDt);
-                console.log("signupResponse", signupResponse);
+                let signupRequest = await API.post("/auth/signup", signupDt);
+                console.log("signupRequest", signupRequest);
+
+                
+
+                let signupResponse = signupRequest?.data?.message || "";
+                toast({message: signupResponse, isError: false });
+                setActiveAuthComponent("login");
 
             }
         }
         catch (err: any) {
-            console.log(err);
-        }   
+            let responseErr = err?.response?.data?.error || handleApiError(err);
+            console.log(responseErr);
+            toast({message: responseErr, isError: true })
+        }
 
 
 

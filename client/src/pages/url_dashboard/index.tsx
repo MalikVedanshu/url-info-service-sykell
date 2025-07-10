@@ -1,7 +1,8 @@
 
-import React, {useState, useEffect} from "react";
+import React, { createContext, useState, useEffect } from "react";
 import API from "../../utils/request.ts";
 import ViewUrl from "./View.tsx";
+import AddUrlModal from "./Add.tsx";
 
 interface ResponseNotification {
     message: string,
@@ -13,8 +14,29 @@ interface UserDetails {
     email: string
 }
 
+export interface AllUrlResponse {
+    UserId: string,
+    title: string,
+    url: string,
+    id: string,
+    htmlVersion: string,
+    h1: number,
+    h2: number,
+    h3: number,
+    h4: number,
+    h5: number,
+    h6: number,
+    internalLinks: number,
+    externalLinks: number,
+    inAccessibleLinks: number,
+    presenseOfLoginForm: boolean,
+    analysed: boolean
+}
 
-const Dashboard : React.FC = () => {
+export const AllUrlsContext = createContext<AllUrlResponse[] | null>(null);
+
+
+const Dashboard: React.FC = () => {
 
     let token = localStorage.getItem("z-token");
 
@@ -28,58 +50,58 @@ const Dashboard : React.FC = () => {
         email: ""
     })
 
+    const [allUrls, setAllUrls] = useState<AllUrlResponse[]>([]);
 
-    async function validateLogin (){
+    async function getMyUrls() {
         try {
-            let validateTokenResponse = await API.get("/auth/validate", {
-                headers: {"z-token":token || ''}
+            let getMyUrls = await API.get("/url/get", {
+                headers: { "z-token": token || '' }
 
             });
 
-            console.log("validateTokenResponse", validateTokenResponse);
+            // console.log("getMyUrls = ", getMyUrls);
 
-            if(validateTokenResponse?.data) {
-                setResponseNotification({message: "Valid user", isError: false});
+            // let error = myAllUrls
+            let myAllUrls = getMyUrls?.data?.message || []
 
-                setUserDetails({
-                    name: validateTokenResponse?.data?.name || "",
-                    email: validateTokenResponse?.data?.email || ""
-                })
-            }
-            
+
+            // console.log("getMyUrls data", myAllUrls || []);
+
+            setAllUrls(myAllUrls);
+
 
         }
-        catch(err: any) {
-            let responseError  = err?.response?.data?.error || "Something went wrong";
-            setResponseNotification({message: responseError, isError: true});
+        catch (err: any) {
+            let responseError = err?.response?.data?.error || "Something went wrong";
+            setResponseNotification({ message: responseError, isError: true });
             console.log("err", err);
         }
     }
 
-    useEffect (() => {
+    useEffect(() => {
 
-        
 
-        validateLogin();
+
+        getMyUrls();
+
 
     }, []);
 
-    
-
-
-    // http://192.168.178.89:5050/auth/user/42e969c9-ac48-45b3-bae5-e8315fed4f9c
-
     return (
         <>
-            {responseNotification?.message?.length ? 
-            <div className={responseNotification.isError ? "txt-error" : "txt-success"}>{responseNotification.message}</div> : 
-            <div></div>}
+            {responseNotification?.message?.length ?
+                <div className={responseNotification.isError ? "txt-error" : "txt-success"}>{responseNotification.message}</div> :
+                <div></div>}
 
             {
                 userDetails.name?.length ? <h1>Hello {userDetails.name} - {userDetails.email}</h1> : <div></div>
             }
+            
+            <AddUrlModal />
+            <AllUrlsContext.Provider value={allUrls}>
 
-            <ViewUrl />
+                <ViewUrl />
+            </AllUrlsContext.Provider>
         </>
     )
 }
