@@ -36,29 +36,35 @@ const ViewUrl = () =>  {
                                         <td key={fieldIdx}>
                                             
                                             {
-                                                (fieldEle.type === "text" || fieldEle.type === "number") && <span> 
+                                                fieldEle.type === "text" && <span> 
                                                     {urlData[fieldEle.fieldName]}
+                                                </span> || ""
+                                            }
+
+                                            {
+                                                fieldEle.type === "number" && <span> 
+                                                    {urlData["analysed"] ? urlData[fieldEle.fieldName] : "-"}
                                                 </span> || ""
                                             }
 
                                             
                                             { 
                                                 fieldEle.type === "boolean" && <span>
-                                                    {urlData[fieldEle.fieldName] === true ? "YES" : "NO"}
+                                                    {urlData["analysed"] ? urlData[fieldEle.fieldName] === true ? "YES" : "NO" :  "-"}
                                                 </span> || ""
                                                 
                                             }
 
                                             { 
                                                 fieldEle.type === "parent" && <span>
-
+                                                    {urlData["analysed"] ? "" : "-"}
                                                 </span> || ""
                                                 
                                             }
 
                                             {
                                                 fieldEle.type === "button" && <span>
-                                                    <button><Analyse /> </button>
+                                                    <button className="analyse" disabled={urlData["analysed"]}><Analyse /> </button>
                                                 </span> || ""
                                             }
                                             

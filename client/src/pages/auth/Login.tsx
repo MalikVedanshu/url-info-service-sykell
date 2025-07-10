@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Eye } from '../../files/icons/index.tsx';
+import { Eye, CloseEye } from '../../files/icons/index.tsx';
 
 import { isValidEmail } from '../../utils/FormValidation.ts';
 import texts from "../../locales/en.json";
@@ -167,10 +167,10 @@ const Login: React.FC = () => {
                         />
                         <button
                             type='button'
-                            className='transparent-button icon-img'
+                            className='icon-img'
                             onClick={() => setShouldShowPasswd(!shouldShowPasswd)}
                         >
-                            <Eye />
+                            {shouldShowPasswd ? <Eye /> : <CloseEye /> }
                         </button>
                     </div>
                 </div>

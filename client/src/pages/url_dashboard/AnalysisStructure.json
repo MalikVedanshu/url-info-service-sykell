@@ -69,21 +69,21 @@
         {
             "fieldName": "internalLinks",
             "heading": "Internal Links",
-            "type": "text",
+            "type": "number",
             "sortable": true,
             "required": false
         },
         {
             "fieldName": "externalLinks",
             "heading": "External Links",
-            "type": "text",
+            "type": "number",
             "sortable": true,
             "required": false
         },
         {
             "fieldName": "inaccessibleLinks",
             "heading": "In-Accessible Links",
-            "type": "text",
+            "type": "number",
             "sortable": true,
             "required": false
         },
