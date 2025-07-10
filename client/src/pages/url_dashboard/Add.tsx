@@ -1,23 +1,20 @@
 import React,{useState} from "react"
 import API from '../../utils/request.ts';
+import { useToast } from "../../components/CustomToaster.tsx";
+import { handleApiError } from '../../utils/errorHandler.ts';
 
-interface addUrlResponse {
-    message: string,
-    isError: boolean
+interface TriggerProps {
+    dataChangeTriggered: boolean,
+    setDataChangeTriggered: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-
-const AddUrlModal: React.FC = () => {
+const AddUrlModal: React.FC<TriggerProps> = ({dataChangeTriggered, setDataChangeTriggered}) => {
 
     let token = localStorage.getItem("z-token");
+    const toast = useToast();
 
     let [modalsStyle, setModalsStyle] = useState<string>("none");
     let [urlVal, setUrlVal] = useState<string>("");
-
-    let [addUrlResponse, setAddUrlResponse] = useState<addUrlResponse>({
-        message: "",
-        isError: false
-    });
 
 
     const onUrlAdd = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,17 +28,23 @@ const AddUrlModal: React.FC = () => {
 
             let urlResponse = addUrlRequest?.data?.message || "";
 
-            setAddUrlResponse({
-                message: urlResponse,
-                isError: false
-            });
-
             console.log("urlResponse", urlResponse);
+            let customUrlAddResponse = urlResponse?.data?.message || "URL Added successfully";
+
+            setDataChangeTriggered(!dataChangeTriggered);
+
+            toast({message: customUrlAddResponse, isError: false});
+
+            setModalsStyle("none");
 
 
         }
         catch(err: any) {
             console.log(err);
+
+            let customError = err?.response?.data?.error || handleApiError(err)
+
+            toast({message: customError, isError: true});
         }
     }
 
@@ -51,7 +54,6 @@ const AddUrlModal: React.FC = () => {
 
         <div>
             <button onClick={() => setModalsStyle("flex")}>Add URL</button>
-            <span className={addUrlResponse.isError ? "txt-error": "txt-success"}>{addUrlResponse.message}</span>
         </div>
             <div className="modal-backdrop" id="modalBackdrop" style={{display: modalsStyle}}>
 

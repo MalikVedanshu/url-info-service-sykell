@@ -55,3 +55,8 @@
     opacity: 0.95;
   }
 }
+
+button svg {
+  height : 16px;
+  width: auto;
+} 

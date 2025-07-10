@@ -52,6 +52,8 @@ const Dashboard: React.FC = () => {
 
     const [allUrls, setAllUrls] = useState<AllUrlResponse[]>([]);
 
+    const [dataChangeTriggered, setDataChangeTriggered] = useState<boolean>(false);
+
     async function getMyUrls() {
         try {
             let getMyUrls = await API.get("/url/get", {
@@ -85,7 +87,7 @@ const Dashboard: React.FC = () => {
         getMyUrls();
 
 
-    }, []);
+    }, [dataChangeTriggered]);
 
     return (
         <>
@@ -97,7 +99,7 @@ const Dashboard: React.FC = () => {
                 userDetails.name?.length ? <h1>Hello {userDetails.name} - {userDetails.email}</h1> : <div></div>
             }
             
-            <AddUrlModal />
+            <AddUrlModal dataChangeTriggered={dataChangeTriggered} setDataChangeTriggered={setDataChangeTriggered} />
             <AllUrlsContext.Provider value={allUrls}>
 
                 <ViewUrl />

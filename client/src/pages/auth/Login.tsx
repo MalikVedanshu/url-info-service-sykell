@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Eye } from '../../files/icons/index.ts';
+import { Eye } from '../../files/icons/index.tsx';
 
 import { isValidEmail } from '../../utils/FormValidation.ts';
 import texts from "../../locales/en.json";
 import API from '../../utils/request.ts';
 import { useToast } from '../../components/CustomToaster.tsx';
-import { handleApiError } from '../../utils/errorHandler.ts';
 
 const { loginTXT } = texts;
 
@@ -171,7 +170,7 @@ const Login: React.FC = () => {
                             className='transparent-button icon-img'
                             onClick={() => setShouldShowPasswd(!shouldShowPasswd)}
                         >
-                            <img src={Eye} alt='view hidden password' />
+                            <Eye />
                         </button>
                     </div>
                 </div>

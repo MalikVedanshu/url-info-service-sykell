@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isValidName, isValidEmail, isStrongPassword, isPasswordMatch } from '../../utils/FormValidation.ts';
 import texts from '../../locales/en.json';
-import { Eye } from '../../files/icons/index.ts';
+import { Eye } from '../../files/icons/index.tsx';
 import API from '../../utils/request.ts';
 import { useToast } from '../../components/CustomToaster.tsx';
 import { handleApiError } from '../../utils/errorHandler.ts';
@@ -184,7 +184,7 @@ const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
                             className='transparent-button icon-img'
                             onClick={() => setShouldShowPass(!shouldShowPass)}
                         >
-                            <img src={Eye} alt='view hidden password' />
+                            <Eye />
                         </button>
                     </div>
                 </div>
@@ -211,7 +211,7 @@ const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
                             className="transparent-button icon-img"
                             onClick={() => setShouldShowConfirmPass(!shouldShowConfirmPass)}
                         >
-                            <img src={Eye} alt='view hidden password' />
+                            <Eye />
                         </button>
                     </div>
                 </div>
