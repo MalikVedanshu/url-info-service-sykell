@@ -92,9 +92,9 @@ const Login: React.FC = () => {
                 const response = await API.post(`/auth/login`, loginDt);
 
 
-                console.log("response", response);
+                // console.log("response", response);
                 const token = response?.data?.token;
-                console.log(token);
+                // console.log(token);
 
                 toast({message: "Login Successfull", isError: false});
                 
@@ -110,7 +110,7 @@ const Login: React.FC = () => {
             // throw err.response?.data?.error || 'Login failed';
             let responseError  = err?.response?.data?.error || "Something went wrong";
             toast({message: responseError, isError: true});
-            console.log("err", err);
+            // console.log("err", err);
 
         }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { isValidName, isValidEmail, isStrongPassword, isPasswordMatch } from '../../utils/FormValidation.ts';
 import texts from '../../locales/en.json';
 import { Eye, CloseEye } from '../../files/icons/index.tsx';
@@ -31,7 +31,7 @@ interface SignupProp {
 
 const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const toast = useToast();
 
@@ -66,7 +66,7 @@ const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
         try {
             e.preventDefault();
 
-            console.log("Submit handler worked");
+            // console.log("Submit handler worked");
 
             let validName = isValidName(signupDt.name);
             let validEmail = isValidEmail(signupDt.email);
@@ -93,7 +93,7 @@ const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
                 // hit api
 
                 let signupRequest = await API.post("/auth/signup", signupDt);
-                console.log("signupRequest", signupRequest);
+                // console.log("signupRequest", signupRequest);
 
                 
 
@@ -105,7 +105,7 @@ const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
         }
         catch (err: any) {
             let responseErr = err?.response?.data?.error || handleApiError(err);
-            console.log(responseErr);
+            // console.log(responseErr);
             toast({message: responseErr, isError: true })
         }
 
@@ -208,7 +208,7 @@ const Signup: React.FC<SignupProp> = ({setActiveAuthComponent}) => {
                         />
                         <button
                             type='button'
-                            className="transparent-button icon-img"
+                            className="icon-img"
                             onClick={() => setShouldShowConfirmPass(!shouldShowConfirmPass)}
                         >
                             {shouldShowConfirmPass ? <Eye /> : <CloseEye /> }

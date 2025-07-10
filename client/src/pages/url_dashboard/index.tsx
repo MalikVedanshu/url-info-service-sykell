@@ -9,10 +9,10 @@ interface ResponseNotification {
     isError: boolean
 }
 
-interface UserDetails {
-    name: string,
-    email: string
-}
+// interface UserDetails {
+//     name: string,
+//     email: string
+// }
 
 export interface AllUrlResponse {
     UserId: string,
@@ -54,10 +54,10 @@ const Dashboard: React.FC = () => {
         isError: false
     });
 
-    const [userDetails, setUserDetails] = useState<UserDetails>({
-        name: "",
-        email: ""
-    })
+    // const [userDetails, setUserDetails] = useState<UserDetails>({
+    //     name: "",
+    //     email: ""
+    // })
 
     const [allUrls, setAllUrls] = useState<AllUrlResponse[]>([]);
 
@@ -85,7 +85,7 @@ const Dashboard: React.FC = () => {
         catch (err: any) {
             let responseError = err?.response?.data?.error || "Something went wrong";
             setResponseNotification({ message: responseError, isError: true });
-            console.log("err", err);
+            // console.log("err", err);
         }
     }
 
@@ -104,9 +104,9 @@ const Dashboard: React.FC = () => {
                 <div className={responseNotification.isError ? "txt-error" : "txt-success"}>{responseNotification.message}</div> :
                 <div></div>}
 
-            {
+            {/* {
                 userDetails.name?.length ? <h1>Hello {userDetails.name} - {userDetails.email}</h1> : <div></div>
-            }
+            } */}
             
             <AddUrlModal dataChangeTriggered={dataChangeTriggered} setDataChangeTriggered={setDataChangeTriggered} />
             <AllUrlsContext.Provider value={allUrls}>

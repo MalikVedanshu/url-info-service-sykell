@@ -28,7 +28,7 @@ const AddUrlModal: React.FC<TriggerProps> = ({ dataChangeTriggered, setDataChang
 
             let urlResponse = addUrlRequest?.data?.message || "";
 
-            console.log("urlResponse", urlResponse);
+            // console.log("urlResponse", urlResponse);
             let customUrlAddResponse = urlResponse?.data?.message || "URL Added successfully";
 
             setDataChangeTriggered(!dataChangeTriggered);
@@ -40,7 +40,7 @@ const AddUrlModal: React.FC<TriggerProps> = ({ dataChangeTriggered, setDataChang
 
         }
         catch (err: any) {
-            console.log(err);
+            // console.log(err);
 
             let customError = err?.response?.data?.error || handleApiError(err)
 
