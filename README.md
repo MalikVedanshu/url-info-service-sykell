@@ -86,16 +86,15 @@ root/
 │       ├── App.tsx
 │       ├── components/        # Reusable UI components
 │       ├── pages/             # Page-level components
-│       ├── locales/           # i18n translations (if used)
-│       ├── themes/            # Theme configuration (e.g. styled-components, Tailwind)
+│       ├── locales/           # i18n translations (only english used for now)
 │       ├── utils/             # Frontend utility functions
 │       └── ...
 │
 ├── backend/                   # Golang API (Gin)
 │   ├── main.go
 │   ├── .env                   # Environment variables
-│   ├── middlewares/          # Custom middleware (e.g. auth, CORS)
-│   ├── models/               # Database models & structs
+│   ├── middlewares/          # Custom middleware (eg auth)
+│   ├── models/               # Database models, setup & structs
 │   ├── routes/               # Route handlers
 │   ├── utils/                # Helper functions
 │   └── ...
